@@ -1,14 +1,18 @@
-package com.chess.boardserver;
+package com.chess.boardserver.entities;
 
 import lombok.Data;
 
 @Data
 public class ChessGame {
+    
+    Long id;
+
     private Position positionWhite;
     private Position positionBlack;
     private boolean whitesTurn;
     private boolean whiteCanRoque;
     private boolean blackCanRoque;
+
 
     public ChessGame(){
         this.whitesTurn=true;
@@ -19,4 +23,6 @@ public class ChessGame {
         this.positionBlack = Position.blackInitialPosition();
 
     }
+
+
 }

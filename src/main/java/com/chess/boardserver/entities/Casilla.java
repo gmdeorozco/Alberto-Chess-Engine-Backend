@@ -1,5 +1,7 @@
 package com.chess.boardserver.entities;
 
+import com.chess.boardserver.chessLogic.Piece;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

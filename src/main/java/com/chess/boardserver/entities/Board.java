@@ -3,6 +3,9 @@ package com.chess.boardserver.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.chess.boardserver.chessLogic.ChessGame;
+import com.chess.boardserver.chessLogic.Piece;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

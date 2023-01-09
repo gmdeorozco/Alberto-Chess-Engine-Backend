@@ -1,4 +1,4 @@
-package com.chess.boardserver.entities;
+package com.chess.boardserver.chessLogic;
 
 import java.util.BitSet;
 

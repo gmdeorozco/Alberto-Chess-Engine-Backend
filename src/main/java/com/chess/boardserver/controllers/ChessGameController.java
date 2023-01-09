@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chess.boardserver.chessLogic.ChessGame;
 import com.chess.boardserver.entities.Board;
-import com.chess.boardserver.entities.ChessGame;
 import com.chess.boardserver.service.BoardService;
 
 

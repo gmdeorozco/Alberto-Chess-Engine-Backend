@@ -32,16 +32,48 @@ public class AvailableMovesService {
         && chessGame.isWhitesTurn() ) {
 
             BitSet availableSquares 
-                = getWhiteKnightAvailableMovesBitset( chessGame, bitSet );
-                System.out.println("avail sq "+ availableSquares.toString() );
+                = getKnightAvailableMovesBitset( chessGame, bitSet, true );
+        
             return bitSetToListOfSquares( availableSquares );
 
-        }    
+        }
+        
+        if( bitSet.intersects( chessGame.getPositionWhite().getBishopSet() ) 
+            && chessGame.isWhitesTurn() ) {
+                BitSet availableSquares 
+                = getBishopAvailableMovesBitset( chessGame, bitSet, true );
+        
+            return bitSetToListOfSquares( availableSquares );
+        }
 		
         return null;
 	}
 
-    private BitSet getWhiteKnightAvailableMovesBitset(ChessGame chessGame, 
+    private BitSet getBishopAvailableMovesBitset(ChessGame chessGame, 
+        BitSet originalSquareBitset, 
+        boolean color) {
+
+        BitSet availableSquares = new BitSet( 64 );
+        int orig = originalSquareBitset.nextSetBit(0);
+
+        BitSet upDiags = chessGame.getPositionBlack().getDiagUp(originalSquareBitset);
+        BitSet downDiags = chessGame.getPositionBlack().getDiagDown(originalSquareBitset);
+        
+        if( upDiags != null) availableSquares.or( upDiags );
+        if( downDiags != null) availableSquares.or( downDiags );
+
+        if( color ){
+            availableSquares.and ( chessGame.getPositionWhite().getNonOccupied() );
+        }
+        else{
+            availableSquares.and ( chessGame.getPositionBlack().getNonOccupied() );
+        }
+        
+        return availableSquares;
+
+	}
+
+	private BitSet getKnightAvailableMovesBitset(ChessGame chessGame, 
         BitSet originalSquareBitset,
         boolean color
         ) {

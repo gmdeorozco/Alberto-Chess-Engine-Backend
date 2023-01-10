@@ -31,8 +31,14 @@ public class ChessGame {
         this.whiteCanRoque=true;
         this.blackCanRoque=true;
         
-        if ( pieceProof == 2 ) this.positionWhite = Position.knightProof( index );
-        this.positionBlack = Position.knightProof( index + 1 );
+        if ( pieceProof == 2 ){
+            this.positionWhite = Position.knightProof( index );
+            this.positionBlack = Position.knightProof( index + 1 );
+        }
+        if ( pieceProof == 3 ){
+            this.positionWhite = Position.bishopProof( index );
+            this.positionBlack = Position.bishopProof( index + 1 );
+        } 
     }
 
     public ChessGame( Board board){

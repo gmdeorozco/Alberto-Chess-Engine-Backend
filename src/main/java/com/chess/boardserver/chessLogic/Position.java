@@ -453,19 +453,23 @@ public class Position {
 
     public BitSet getDiagUp ( BitSet bitset ){
 
-        return diagsUp.stream()
+        List<BitSet> list = diagsUp.stream()
             .filter( bit -> bit.intersects( bitset ) )
-            .toList()
-            .get(0);
+            .toList();
+
+        if( list.isEmpty()){return null;} 
+        else return list.get(0);
 
     }
 
     public BitSet getDiagDown ( BitSet bitset ){
 
-        return diagsDown.stream()
+        List<BitSet> list = diagsDown.stream()
             .filter( bit -> bit.intersects( bitset ) )
-            .toList()
-            .get(0);
+            .toList();
+
+        if( list.isEmpty()){return null;} 
+            else return list.get(0);
 
     }
 
@@ -541,6 +545,24 @@ public class Position {
         Position position = new Position();
         
         position.knightSet.set( index );
+
+        position.occupied.or( position.pawnSet );
+        position.occupied.or( position.knightSet );
+        position.occupied.or( position.bishopSet );
+        position.occupied.or( position.rookSet );
+        position.occupied.or( position.queenSet );
+        position.occupied.or( position.kingSet );
+
+        position.nonOccupied = ( BitSet ) position.occupied.clone();
+        position.nonOccupied.flip( 0, position.nonOccupied.size()-1 );
+
+        return position;
+    }
+
+    public static Position bishopProof( int index) {
+        Position position = new Position();
+        
+        position.bishopSet.set( index );
 
         position.occupied.or( position.pawnSet );
         position.occupied.or( position.knightSet );

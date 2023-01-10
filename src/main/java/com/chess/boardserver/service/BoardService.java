@@ -15,5 +15,9 @@ public class BoardService {
         return boardRepository.save(board);
     }
 
+    public Board getById(Long gameId) {
+        return boardRepository.getReferenceById(gameId);
+    }
+
 
 }

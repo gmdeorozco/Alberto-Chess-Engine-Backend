@@ -11,13 +11,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+
 public class Board {
 
     @Id
@@ -27,8 +30,12 @@ public class Board {
     @OneToMany(cascade = CascadeType.ALL)
     List<Casilla> casillas = new ArrayList<>();
 
+    private boolean whitesTurn;
+    private boolean whiteCanRoque;
+    private boolean blackCanRoque;
 
-    public Board( ChessGame chessGame){
+
+    public Board( ChessGame chessGame ){
 
        
         casillas.add(new Casilla("a1"));
@@ -103,9 +110,13 @@ public class Board {
         casillas.add(new Casilla("h7"));
         casillas.add(new Casilla("h8"));
 
+
         casillas.stream()
             .forEach(casilla -> configureCasilla(casilla, chessGame));
 
+        this.blackCanRoque = chessGame.isBlackCanRoque();
+        this.whiteCanRoque = chessGame.isWhiteCanRoque();
+        this.whitesTurn = chessGame.isWhitesTurn();
 
     }
 
@@ -114,19 +125,19 @@ public class Board {
 
         int ind = casilla.getBitsetNumber();
 
-        if( chessGame.getPositionWhite().pawnSet.get(ind)) { casilla.setColor("White"); casilla.setPieza(Piece.PAWN); }
-        else if( chessGame.getPositionWhite().knightSet.get(ind)) { casilla.setColor("White"); casilla.setPieza(Piece.KNIGTH); }
-        else if( chessGame.getPositionWhite().bishopSet.get(ind)) { casilla.setColor("White"); casilla.setPieza(Piece.BISHOP); }
-        else if( chessGame.getPositionWhite().rookSet.get(ind)) { casilla.setColor("White"); casilla.setPieza(Piece.ROOK); }
-        else if( chessGame.getPositionWhite().queenSet.get(ind)) { casilla.setColor("White"); casilla.setPieza(Piece.QUEEN); }
-        else if( chessGame.getPositionWhite().kingSet.get(ind)) { casilla.setColor("White"); casilla.setPieza(Piece.KING); }
+        if( chessGame.getPositionWhite().getPawnSet().get(ind)) { casilla.setColor("White"); casilla.setPieza(Piece.PAWN); }
+        else if( chessGame.getPositionWhite().getKnightSet().get(ind)) { casilla.setColor("White"); casilla.setPieza(Piece.KNIGTH); }
+        else if( chessGame.getPositionWhite().getBishopSet().get(ind)) { casilla.setColor("White"); casilla.setPieza(Piece.BISHOP); }
+        else if( chessGame.getPositionWhite().getRookSet().get(ind)) { casilla.setColor("White"); casilla.setPieza(Piece.ROOK); }
+        else if( chessGame.getPositionWhite().getQueenSet().get(ind)) { casilla.setColor("White"); casilla.setPieza(Piece.QUEEN); }
+        else if( chessGame.getPositionWhite().getKingSet().get(ind)) { casilla.setColor("White"); casilla.setPieza(Piece.KING); }
 
-        else if( chessGame.getPositionBlack().pawnSet.get(ind)) { casilla.setColor("Black"); casilla.setPieza(Piece.PAWN); }
-        else if( chessGame.getPositionBlack().knightSet.get(ind)) { casilla.setColor("Black"); casilla.setPieza(Piece.KNIGTH); }
-        else if( chessGame.getPositionBlack().bishopSet.get(ind)) { casilla.setColor("Black"); casilla.setPieza(Piece.BISHOP); }
-        else if( chessGame.getPositionBlack().rookSet.get(ind)) { casilla.setColor("Black"); casilla.setPieza(Piece.ROOK); }
-        else if( chessGame.getPositionBlack().queenSet.get(ind)) { casilla.setColor("Black"); casilla.setPieza(Piece.QUEEN); }
-        else if( chessGame.getPositionBlack().kingSet.get(ind)) { casilla.setColor("Black"); casilla.setPieza(Piece.KING); }
+        else if( chessGame.getPositionBlack().getPawnSet().get(ind)) { casilla.setColor("Black"); casilla.setPieza(Piece.PAWN); }
+        else if( chessGame.getPositionBlack().getKnightSet().get(ind)) { casilla.setColor("Black"); casilla.setPieza(Piece.KNIGTH); }
+        else if( chessGame.getPositionBlack().getBishopSet().get(ind)) { casilla.setColor("Black"); casilla.setPieza(Piece.BISHOP); }
+        else if( chessGame.getPositionBlack().getRookSet().get(ind)) { casilla.setColor("Black"); casilla.setPieza(Piece.ROOK); }
+        else if( chessGame.getPositionBlack().getQueenSet().get(ind)) { casilla.setColor("Black"); casilla.setPieza(Piece.QUEEN); }
+        else if( chessGame.getPositionBlack().getKingSet().get(ind)) { casilla.setColor("Black"); casilla.setPieza(Piece.KING); }
         
     }
 

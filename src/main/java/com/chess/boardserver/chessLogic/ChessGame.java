@@ -1,5 +1,9 @@
 package com.chess.boardserver.chessLogic;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.chess.boardserver.albertoEngine.VirtualMove;
 import com.chess.boardserver.entities.Board;
 import com.chess.boardserver.entities.Casilla;
 
@@ -15,6 +19,8 @@ public class ChessGame {
     private boolean whiteCanRoque;
     private boolean blackCanRoque;
 
+    private List<VirtualMove> next;
+
     public ChessGame(){
 
         this.whitesTurn=true;
@@ -24,12 +30,16 @@ public class ChessGame {
         this.positionWhite = Position.whiteInitialPosition();
         this.positionBlack = Position.blackInitialPosition();
 
+        this.next = new ArrayList<>();
+
     }
 
     public ChessGame( int pieceProof, int index, boolean turn ){
         this.whitesTurn=turn;
         this.whiteCanRoque=true;
         this.blackCanRoque=true;
+
+        this.next = new ArrayList<>();
         
         if ( pieceProof == 2 ){
             this.positionWhite = Position.knightProof( index );
@@ -49,6 +59,8 @@ public class ChessGame {
 
         this.positionWhite = new Position();
         this.positionBlack = new Position();
+
+        this.next = new ArrayList<>();
 
         board.getCasillas().stream()
             .forEach(casilla -> setPosition(casilla));
